@@ -120,3 +120,9 @@ func (group *RouterGroup) Static(relativePath, root string) {
 	urlPattern := path.Join(relativePath, "/*filepath")
 	group.GET(urlPattern, handler)
 }
+
+func Default() *Engine {
+	engine := New()
+	engine.Use(Logger(), Recovery())
+	return engine
+}

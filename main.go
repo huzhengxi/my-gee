@@ -20,8 +20,7 @@ func FormatAsDate(t time.Time) string {
 }
 
 func main() {
-	r := gee.New()
-	r.Use(gee.Logger())
+	r := gee.Default()
 	r.SetFuncMap(template.FuncMap{
 		"FormatAsDate": FormatAsDate,
 	})
@@ -46,6 +45,11 @@ func main() {
 			"title": "gee",
 			"now":   time.Date(2020, 11, 10, 0, 0, 0, 0, time.UTC),
 		})
+	})
+
+	r.GET("/panic", func(c *gee.Context) {
+		name := []string{"geektutu"}
+		c.String(http.StatusOK, name[100])
 	})
 
 	v1 := r.Group("/v1")
